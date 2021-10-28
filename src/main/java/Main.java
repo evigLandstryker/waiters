@@ -43,12 +43,24 @@ public class Main {
         wait.until(ExpectedConditions.visibilityOfElementLocated(promotionForWait));
 
         //Click "Купить"
+        By buttonBuy = By.cssSelector("button[class^=buy-button]");
+        WebElement searchButtonBuy = driver.findElement(buttonBuy);
+        searchButtonBuy.click();
 
         //Add explicit waiter to wait cart page is loaded
+        By buttonCartReceipt = By.cssSelector("a[class~=cart-receipt__submit]");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(buttonCartReceipt));
 
         //Click "Оформить заказ"
+        WebElement buttonCheckout = driver.findElement(buttonCartReceipt);
+        buttonCheckout.click();
 
         //Add explicit waiter to wait cart checkout page is loaded
+        By buttonCheckoutSubmit = By.cssSelector("input[class~=checkout-total__submit]");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(buttonCheckoutSubmit));
 
+
+
+        driver.quit();
     }
 }
