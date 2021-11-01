@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
-import static org.testng.reporters.Files.copyFile;
+import static com.sun.deploy.cache.Cache.copyFile;
 
 public class Main {
     WebDriver driver;
@@ -82,13 +82,16 @@ public class Main {
         wait.until(ExpectedConditions.visibilityOfElementLocated(buttonCheckoutSubmit));
     }
 
-    /*@AfterMethod(alwaysRun = true)
-    public void takeScreenshot (ITestResult testResult) throws IOException {
-        if (!testResult.isSuccess()) {
+    @AfterMethod(alwaysRun = true)
+    public void takeScreenshot(ITestResult result) {
+        if (!result.isSuccess()) try {
             File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            copyFile(scrFile, new File(testResult.getName() + "[" + LocalDate.now() + "][" + System.currentTimeMillis() + "].png"));
+            copyFile(scrFile, new File(result.getName() + "[" + LocalDate.now() + "][" + System.currentTimeMillis() + "].png"));
+        } catch (
+                IOException e) { e.printStackTrace();
+
         }
-    }*/
+    }
 
     @AfterClass
     public void closeBrowser () {
